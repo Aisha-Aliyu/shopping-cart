@@ -5,6 +5,11 @@
   --radius: 12px;
 }
 
+/* globals.css */
+html, body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
 .focus-ring:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);

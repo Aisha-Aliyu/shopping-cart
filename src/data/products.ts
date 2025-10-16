@@ -1,4 +1,5 @@
 export type Product = {
+  category: string;
   id: string;
   title: string;
   price: number;
@@ -7,10 +8,10 @@ export type Product = {
 };
 
 export const products: Product[] = [
-  { id: "p1", title: "Eclipse Runner Sneakers", price: 129, image: "https://picsum.photos/seed/p1/600/400" },
-  { id: "p2", title: "Aurora Sunglasses", price: 89, image: "https://picsum.photos/seed/p2/600/400" },
-  { id: "p3", title: "Noir Leather Bag", price: 199, image: "https://picsum.photos/seed/p3/600/400" },
-  { id: "p4", title: "Skyline Watch", price: 249, image: "https://picsum.photos/seed/p4/600/400" },
-  { id: "p5", title: "Zen Hoodie", price: 69, image: "https://picsum.photos/seed/p5/600/400" },
-  { id: "p6", title: "Lumen Earbuds", price: 149, image: "https://picsum.photos/seed/p6/600/400" },
+  { id: "1", title: "Eclipse Runner Sneakers", price: 129, image: "/src/assets/shoe.jpg" },
+  { id: "2", title: "Aurora Sunglasses", price: 89, image: "/src/assets/glass.jpg" },
+  { id: "3", title: "Noir Leather Bag", price: 199, image: "/src/assets/bag.jpg" },
+  { id: "4", title: "Skyline Watch", price: 249, image: "/src/assets/watch.jpg" },
+  { id: "5", title: "Zen Hoodie", price: 69, image: "/src/assets/hoodie.jpg" },
+  { id: "6", title: "Lumen Earbuds", price: 149, image: "/src/assets/buds.jpg" },
 ];

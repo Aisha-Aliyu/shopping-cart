@@ -9,11 +9,16 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return (saved as Theme) || "light";
   });
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
+ useEffect(() => {
+  if (theme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+  if (typeof window !== "undefined") {
     localStorage.setItem("theme", theme);
-  }, [theme]);
-
+  }
+}, [theme]);
   return <ThemeContext.Provider value={{ theme, toggle: () => setTheme(t => (t === "light" ? "dark" : "light")) }}>{children}</ThemeContext.Provider>
 }
 
