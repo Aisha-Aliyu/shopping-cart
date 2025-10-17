@@ -9,8 +9,8 @@ export default function ProductCard({ product }: { product: Product }) {
   const { addToCart } = useCart();
   const [favorites, setFavorites] = useRecoilState(favoritesState);
 
-  // Convert id to number (safe)
-  const productId = typeof product.id === "string" ? parseInt(product.id) : product.id;
+  const productId =
+    typeof product.id === "string" ? parseInt(product.id) : product.id;
 
   const isFav = favorites.includes(productId);
 
@@ -27,14 +27,17 @@ export default function ProductCard({ product }: { product: Product }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4 }}
-      whileHover={{ scale: 1.03, y: -4, boxShadow: "0 10px 20px rgba(0,0,0,0.12)" }}
+      whileHover={{
+        scale: 1.03,
+        y: -4,
+        boxShadow: "0 10px 20px rgba(0,0,0,0.12)",
+      }}
       className="relative bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden transition-all hover:shadow-xl"
       role="article"
     >
-      {/* Image */}
       <div className="relative overflow-hidden rounded-t-xl">
         <img
-          src={product.image ?? "/placeholder.png"} // ✅ fallback to avoid undefined
+          src={product.image ?? "/placeholder.png"}
           alt={product.title}
           loading="lazy"
           className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
@@ -42,7 +45,6 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity" />
       </div>
 
-      {/* Wishlist */}
       <button
         onClick={toggleFav}
         className="absolute top-3 right-3 p-2 rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-md hover:scale-110 transition-all"
@@ -56,7 +58,6 @@ export default function ProductCard({ product }: { product: Product }) {
         />
       </button>
 
-      {/* Details */}
       <div className="p-4">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
           {product.title}
@@ -67,10 +68,10 @@ export default function ProductCard({ product }: { product: Product }) {
           <button
             onClick={() =>
               addToCart({
-                id: productId, // ✅ casted to number
+                id: productId,
                 title: product.title,
                 price: product.price,
-                image: product.image ?? "/placeholder.jpg", // ✅ fallback
+                image: product.image ?? "/placeholder.jpg",
               })
             }
             className="flex-1 py-2 rounded-md bg-gradient-to-r from-brand-500 to-indigo-500 text-white font-medium hover:opacity-90 active:scale-95 transition-all shadow-md"

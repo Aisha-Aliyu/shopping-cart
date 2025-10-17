@@ -13,7 +13,10 @@ export default function SearchBar() {
       transition={{ duration: 0.4 }}
       className="w-full max-w-lg mx-auto mt-6 relative"
     >
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+      <Search
+        className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+        size={18}
+      />
       <input
         type="text"
         placeholder="Search products..."

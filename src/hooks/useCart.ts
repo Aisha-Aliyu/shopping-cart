@@ -19,20 +19,21 @@ export const useCart = () => {
       return [...prev, { ...product, quantity: 1 }];
     });
 
-    // 🎉 Trigger confetti when an item is added
     confetti({
       particleCount: 60,
       spread: 50,
       origin: { y: 0.8 },
       ticks: 100,
-      scalar: 0.8
+      scalar: 0.8,
     });
   };
 
   const removeFromCart = (id: number) => {
-    const item = cart.find(i => i.id === id);
-    setCart(prev => prev.filter(i => i.id !== id));
-    if (item) toast.error(`${item.title} removed from cart`);
+    setCart(prev => {
+      const item = prev.find(i => i.id === id);
+      if (item) toast.error(`${item.title} removed from cart`);
+      return prev.filter(i => i.id !== id);
+    });
   };
 
   const changeQuantity = (id: number, qty: number) => {

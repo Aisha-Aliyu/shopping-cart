@@ -7,7 +7,7 @@ import { Trash2 } from "lucide-react";
 export default function Wishlist() {
   const [favorites, setFavorites] = useRecoilState(favoritesState);
 
-  // ✅ Filter favorites (convert product IDs to numbers)
+  // Filter favorites (convert product IDs to numbers)
   const favProducts = products.filter((p) => favorites.includes(Number(p.id)));
 
   if (favProducts.length === 0)

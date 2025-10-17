@@ -10,7 +10,7 @@ export type CartItem = {
 };
 
 const { persistAtom } = recoilPersist({
-  key: "shopping-cart", // key in localStorage
+  key: "shopping-cart",
   storage: localStorage,
 });
 
@@ -20,12 +20,12 @@ export const cartState = atom<CartItem[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const cartCountState = selector({
+export const cartCountState = selector<number>({
   key: "cartCountState",
   get: ({ get }) => get(cartState).reduce((acc, i) => acc + i.quantity, 0),
 });
 
-export const cartTotalState = selector({
+export const cartTotalState = selector<number>({
   key: "cartTotalState",
   get: ({ get }) => get(cartState).reduce((acc, i) => acc + i.price * i.quantity, 0),
 });

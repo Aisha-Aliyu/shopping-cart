@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
-/* Your custom styles below */
+/* Global custom styles */
 :root {
   --radius: 12px;
 }
 
-/* globals.css */
+/* Smooth theme transition */
 html, body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+/* Focus styles */
 .focus-ring:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
   border-radius: var(--radius);
 }
-

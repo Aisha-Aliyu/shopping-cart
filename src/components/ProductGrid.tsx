@@ -4,14 +4,17 @@ import { motion } from "framer-motion";
 import { useRecoilValue } from "recoil";
 import { products } from "../data/products";
 import ProductCard from "./ProductCard";
-import { searchQueryState, categoryFilterState, priceFilterState } from "../state/filterAtom";
+import {
+  searchQueryState,
+  categoryFilterState,
+  priceFilterState,
+} from "../state/filterAtom";
 
 export default function ProductGrid() {
   const query = useRecoilValue(searchQueryState);
   const category = useRecoilValue(categoryFilterState);
   const priceRange = useRecoilValue(priceFilterState);
 
-  // Filter products by search, category, and price
   const filtered = products.filter(
     (p) =>
       p.title.toLowerCase().includes(query.toLowerCase()) &&
@@ -44,7 +47,10 @@ export default function ProductGrid() {
               visible: { opacity: 1, y: 0, scale: 1 },
             }}
             transition={{ duration: 0.4, type: "spring", stiffness: 120 }}
-            whileHover={{ scale: 1.03, boxShadow: "0 15px 25px rgba(0,0,0,0.12)" }}
+            whileHover={{
+              scale: 1.03,
+              boxShadow: "0 15px 25px rgba(0,0,0,0.12)",
+            }}
           >
             <ProductCard product={p} />
           </motion.div>

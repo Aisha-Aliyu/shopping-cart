@@ -1,26 +1,42 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
-const ThemeContext = createContext({ theme: "light" as Theme, toggle: () => {} });
+
+interface ThemeContextProps {
+  theme: Theme;
+  toggle: () => void;
+}
+
+const ThemeContext = createContext<ThemeContextProps>({
+  theme: "light",
+  toggle: () => {},
+});
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
-    const saved = typeof window !== "undefined" ? localStorage.getItem("theme") : null;
-    return (saved as Theme) || "light";
+    if (typeof window === "undefined") return "light";
+    const saved = localStorage.getItem("theme") as Theme | null;
+    return saved || "light";
   });
 
- useEffect(() => {
-  if (theme === "dark") {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
-  if (typeof window !== "undefined") {
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
     localStorage.setItem("theme", theme);
-  }
-}, [theme]);
-  return <ThemeContext.Provider value={{ theme, toggle: () => setTheme(t => (t === "light" ? "dark" : "light")) }}>{children}</ThemeContext.Provider>
-}
+  }, [theme]);
+
+  const toggle = () => setTheme(prev => (prev === "light" ? "dark" : "light"));
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggle }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => useContext(ThemeContext);

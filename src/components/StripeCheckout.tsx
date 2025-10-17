@@ -1,11 +1,19 @@
 import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {
+  Elements,
+  CardElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { cartState, cartTotalState } from "../state/cartAtom";
 import toast from "react-hot-toast";
 
-const stripePromise = loadStripe("STRIPE_PUBLISHABLE_KEY"); 
+// ✅ Properly load Stripe using environment variable or fallback
+const stripePromise = loadStripe(
+  import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_51Nnxxxxxx..."
+);
 
 interface StripeCheckoutProps {
   onSuccess: () => void;
@@ -25,31 +33,32 @@ function CheckoutForm({ onSuccess }: StripeCheckoutProps) {
       return;
     }
 
-    // Get card info from CardElement
     const cardElement = elements.getElement(CardElement);
     if (!cardElement) return;
 
-    // Simulate payment (Stripe backend call omitted for simplicity)
     try {
       toast.loading("Processing payment...");
-      await new Promise(resolve => setTimeout(resolve, 1000)); // simulate delay
+      // 🧠 Simulate API call delay (since no backend)
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       toast.dismiss();
       toast.success(`Payment of $${total.toFixed(2)} successful!`);
 
-      // Clear cart after successful payment
+      // Clear the cart after success
       setCart([]);
 
-      // Trigger parent callback
+      // Notify parent (CartDrawer) to close drawer
       onSuccess();
     } catch (err) {
       console.error(err);
+      toast.dismiss();
       toast.error("Payment failed!");
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <CardElement className="p-4 border rounded-md" />
+      <CardElement className="p-4 border rounded-md dark:bg-gray-800" />
       <button
         type="submit"
         disabled={!stripe}
